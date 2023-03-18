@@ -1,44 +1,96 @@
 <?php
 
+/**
+ * @author Craig Longford <deltawolf7@gmail.com>
+ * @package ArcREST
+ * @license https://opensource.org/licenses/MIT
+ * @copyright Copyright (c) 2023 Craig Longford
+ * @link https://github.com/DeltaWolf7/ArcRest
+ * @version 1.0.0.0
+ */
+
 namespace Arc;
 
+/**
+ * ArcREST System class.
+ */
 class ArcSystem
 {
+    /**
+     * ArcREST Version.
+     * 
+     * @var string
+     */
     private static $version = '1.0.0.0';
+
+    /**
+     * Controller name.
+     * 
+     * @var string
+     */
     private static $controllerPart = '';
+
+    /**
+     * Action name.
+     * 
+     * @var string
+     */
     private static $actionPart = '';
 
-    // Get current path.
+    /**
+     * Returns the path.
+     * 
+     * @return string
+     */
     static function getPath()
     {
         return ltrim($_SERVER['REQUEST_URI'], '/');
     }
 
-    // Get Host.
+    /**
+     * Returns the host.
+     * 
+     * @return string
+     */
     static function getHost()
     {
         return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]/";
     }
 
-    // Get document root.
+    /**
+     * Returns the document root.
+     * 
+     * @return string
+     */
     static function getDocRoot()
     {
         return $_SERVER['DOCUMENT_ROOT'] . '/';
     }
 
-    // Get request method
+    /**
+     * Returns the request method.
+     * 
+     * @return string
+     */
     static function getMethod()
     {
         return $_SERVER["REQUEST_METHOD"];
     }
 
-    // Get path as array.
+    /**
+     * Returns the path or the uri as an array.
+     * 
+     * @return array
+     */
     static function getPathArray()
     {
         return explode('/', self::getPath());
     }
 
-    // Get route.
+    /**
+     * Locates the controller and action of a request and then calls it.
+     * 
+     */
     static function route() {
         $pathParts = self::getPathArray();
 
@@ -70,7 +122,11 @@ class ArcSystem
         self::ReturnUnprocessable(['error' => 'Method not supported']);            
     }
 
-    // Get version.
+    /**
+     * Outputs the system version as JSON.
+     * If EXPOSE_VERSION is set to false in config, the version is replaced with DISABLED.
+     * 
+     */
     static function getVersion() {
         if (EXPOSE_VERSION) {
             self::ReturnOK(['arcrest_version' => self::$version]);
@@ -79,24 +135,45 @@ class ArcSystem
         }
     }
 
-    // Return 200 OK Responce
+    /**
+     * Outputs a 200 OK header and JSON array.
+     * @param array $array Array of data to be output as JSON.
+     * @param array $headers Array of headers to include to the browser on output.
+     * 
+     */
     static function returnOK($array, $headers = []) {
         $headers[] = 'HTTP/1.1 200 OK';
         self::returnJSON($array, $headers);
     }
 
-    // Return 422 Unprocessable Entity Responce
+    /**
+     * Outputs a 422 Unprocessable Entity responce.
+     * @param array $array Array of data to be output as JSON.
+     * @param array $headers Array of headers to include to the browser on output.
+     * 
+     */
     static function returnUnprocessable($array, $headers = []) {
         $headers[] = 'HTTP/1.1 422 Unprocessable Entity';
         self::returnJSON($array, $headers);
     }
 
-    // Return custom Responce
+    /**
+     * Outputs a custom JSON responce.
+     * @param array $array Array of data to be output as JSON.
+     * @param array $headers Array of headers to include to the browser on output.
+     * 
+     */
     static function returnCustom($array, $headers = []) {
         self::returnJSON($array, $headers);
     }
 
-    // Set header and return JSON.
+    /**
+     * Outputs a responce.
+     * Removed the Cookie header and sets the JSON type for the browser.
+     * @param array $array Array of data to be output as JSON.
+     * @param array $headers Array of headers to include to the browser on output.
+     * 
+     */
     private static function returnJSON($array, $headers = []) {
         header_remove('Set-Cookie');
         header("Content-Type: application/json", false);
