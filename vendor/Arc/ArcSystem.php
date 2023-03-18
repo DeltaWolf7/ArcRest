@@ -72,7 +72,11 @@ class ArcSystem
 
     // Get version.
     static function getVersion() {
-        self::ReturnOK(['arcrest_version' => self::$version]);
+        if (EXPOSE_VERSION) {
+            self::ReturnOK(['arcrest_version' => self::$version]);
+        } else {
+            self::ReturnOK(['arcrest_version' => 'DISABLED']);
+        }
     }
 
     // Return 200 OK Responce

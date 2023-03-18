@@ -6,3 +6,4 @@ define('DB_PASS', '');
 define('DB_NAME', 'database');
 
 define('DEBUG', false);
+define('EXPOSE_VERSION', false);
