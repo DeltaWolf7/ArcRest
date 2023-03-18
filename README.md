@@ -24,6 +24,7 @@ define('EXPOSE_VERSION', false);
 
 # Basic Usage
 Example file: Controller/exampleController.php
+API Call (GET): https://yourdomain.com/example/getname 
 
 This example show a simple random name generator that will select a name from an array and return it when the request method type is GET.
 In this example if the request method is not GET, an error is return instead.
