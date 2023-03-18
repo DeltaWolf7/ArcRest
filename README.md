@@ -15,6 +15,7 @@ Example file: Controller/exampleController.php
 This example show a simple random name generator that will select a name from an array and return it when the request method type is GET.
 In this example if the request method is not GET, an error is return instead.
 
+```php
 <?php
 
 namespace Arc\Controller;
@@ -38,3 +39,4 @@ class ExampleController {
 
     }
 }
+```
