@@ -8,6 +8,7 @@ The framework will always return JSON and uses an MVC style system that allow fo
 File: Config/config.php
 
 This file contains the database config used by Medoo and a flag for enabling debug. If debug is enabled all JSON outputted will include the debug information such as Controller, Action, Version, Request type, HTTP Headers along side any other returns.
+The settings also allow the framework version to be hidden when requests to index are made.
 
 ```php
 <?php
@@ -18,6 +19,7 @@ define('DB_PASS', '');
 define('DB_NAME', 'database');
 
 define('DEBUG', false);
+define('EXPOSE_VERSION', false);
 ```
 
 # Basic Usage
