@@ -55,3 +55,6 @@ class ExampleController {
     }
 }
 ```
+
+# Medoo
+See Medoo documentation for details and usage: https://medoo.in/
