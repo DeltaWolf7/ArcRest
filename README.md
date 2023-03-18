@@ -9,6 +9,17 @@ File: Config/config.php
 
 This file contains the database config used by Medoo and a flag for enabling debug. If debug is enabled all JSON outputted will include the debug information such as Controller, Action, Version, Request type, HTTP Headers along side any other returns.
 
+```php
+<?php
+
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'database');
+
+define('DEBUG', false);
+```
+
 # Basic Usage
 Example file: Controller/exampleController.php
 
